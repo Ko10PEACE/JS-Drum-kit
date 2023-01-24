@@ -6,12 +6,14 @@ for (var i = 0; i<numberOfDrumButtons; i++) {
     document.querySelectorAll("drum")[i].addEventListener("click", function handleClick() {
         var buttonInnerHTML = this.innerHTML;
         makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
         }
 }
 
 //Detecting keypress
 document.addEventListener("keydown", function(event){
     makeSound(event.key);
+    buttonAnimation(event.key);
 });
 
 function makeSound(key) {
@@ -48,4 +50,13 @@ function makeSound(key) {
         default:
             break;
     }
+}
+
+// adds an animation css class once a button is clicked or the corresponding key is pressed
+function buttonAnimation(currentKey){
+    var activeButton = document.querySelector("." + currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(() => {
+        activeButton.classList.remove("pressed")
+    }, 100);
 }
